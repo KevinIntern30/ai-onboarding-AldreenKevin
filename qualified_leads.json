@@ -1,0 +1,16 @@
+[
+    {
+        "name": "John",
+        "email": "john@gmail.com",
+        "age": "28",
+        "country": "India",
+        "score": "85"
+    },
+    {
+        "name": "Bob",
+        "email": "bob@gmail.com",
+        "age": "35",
+        "country": "India",
+        "score": "90"
+    }
+]
