@@ -1,5 +1,5 @@
 # AI Onboarding 30 days-Journey 
-
+![CI](https://github.com/KevinIntern30/ai-onboarding-AldreenKevin/actions/workflows/python-app.yml/badge.svg)
 ## Day 1
 - Learned about GitHub basics
 - Understood repository structure
