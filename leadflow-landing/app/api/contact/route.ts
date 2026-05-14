@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -7,15 +6,16 @@ export async function POST(req: Request) {
 
     const { name, email, message } = body;
 
-    const lead = await prisma.lead.create({
-      data: {
-        name,
-        email,
-        message,
-      },
+    console.log({
+      name,
+      email,
+      message,
     });
 
-    return NextResponse.json(lead);
+    return NextResponse.json({
+      success: true,
+      message: "Form submitted successfully",
+    });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },
