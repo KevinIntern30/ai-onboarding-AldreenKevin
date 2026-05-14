@@ -14,7 +14,7 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     let newErrors = {
@@ -25,11 +25,13 @@ export default function Contact() {
 
     let isValid = true;
 
+    // Name validation
     if (name.trim() === "") {
       newErrors.name = "Name is required";
       isValid = false;
     }
 
+    // Email validation
     if (email.trim() === "") {
       newErrors.email = "Email is required";
       isValid = false;
@@ -38,6 +40,7 @@ export default function Contact() {
       isValid = false;
     }
 
+    // Message validation
     if (message.trim() === "") {
       newErrors.message = "Message is required";
       isValid = false;
@@ -45,12 +48,33 @@ export default function Contact() {
 
     setErrors(newErrors);
 
+    // Submit form if valid
     if (isValid) {
-      alert("Form submitted successfully!");
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+          }),
+        });
 
-      setName("");
-      setEmail("");
-      setMessage("");
+        if (response.ok) {
+          alert("Form submitted successfully!");
+
+          setName("");
+          setEmail("");
+          setMessage("");
+        } else {
+          alert("Failed to submit form");
+        }
+      } catch (error) {
+        alert("Something went wrong");
+      }
     }
   };
 
@@ -64,6 +88,7 @@ export default function Contact() {
         onSubmit={handleSubmit}
         className="bg-gray-100 p-8 rounded-xl shadow-md w-full max-w-md"
       >
+        {/* Name Input */}
         <input
           type="text"
           placeholder="Your Name"
@@ -76,6 +101,7 @@ export default function Contact() {
           <p className="text-red-500 mb-4">{errors.name}</p>
         )}
 
+        {/* Email Input */}
         <input
           type="email"
           placeholder="Your Email"
@@ -88,6 +114,7 @@ export default function Contact() {
           <p className="text-red-500 mb-4">{errors.email}</p>
         )}
 
+        {/* Message Input */}
         <textarea
           placeholder="Your Message"
           value={message}
@@ -99,6 +126,7 @@ export default function Contact() {
           <p className="text-red-500 mb-4">{errors.message}</p>
         )}
 
+        {/* Submit Button */}
         <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800">
           Send Message
         </button>
